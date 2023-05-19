@@ -12,6 +12,16 @@ it('Should parse an infix expression into postfix expression', () => {
   expect(result).toEqual(expected);
 });
 
+it('Should correctly parse order of operations inside parenthesis', () => {
+  const expression: Expression[] = [6, '+', 3, '×', '(', 1, '+', 4, '+', 5, ')', '×', 2];
+
+  const expected: Expression[] = [6, 3, 1, 4, '+', 5, '+', '×', 2, '×', '+'];
+
+  const result = parseInfixExpression(expression);
+
+  expect(result).toEqual(expected);
+});
+
 it('Should correctly parse expression wo times before "(" and after ")"', () => {
   const expression: Expression[] = [6, '+', 3, '(', 1, '+', 4, '×', 5, ')', 2];
 
