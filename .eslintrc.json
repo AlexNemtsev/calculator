@@ -78,5 +78,6 @@
         "no-plusplus": "off"
       }
     }
-  ]
+  ],
+  "ignorePatterns": ["vite.config.ts", "/tests/setup.ts"]
 }
