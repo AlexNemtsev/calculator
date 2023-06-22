@@ -42,12 +42,13 @@ const parseInfixExpression = (expression: Expression[]): Expression[] => {
     '÷': 2,
   };
 
+  // Все приведения к типу Expression возможны благодоря проверке длины массива на 0
   inserted.forEach((lit) => {
     if (typeof lit === 'number') answer.push(lit);
     else if (lit === '(') {
       operations.push(lit);
     } else if (lit === ')') {
-      while (operations.at(-1) !== '(' && operations.length > 0) {
+      while (operations.at(-1) !== '(' && operations.length) {
         answer.push(operations.pop() as Expression);
       }
       operations.pop();

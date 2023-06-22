@@ -18,9 +18,11 @@ const calcExpression = (expression: Expression[]): number => {
     if (typeof lit === 'number') {
       stack.push(lit);
     } else if (lit in operations) {
+      // Алгоритм парсинга выражения гарантирует, что стэк не пуст
       const b = stack.pop() as number;
       const a = stack.pop() as number;
 
+      // Проверка в условии гарантирует, что lit имеет тип Operation
       stack.push(operations[lit as Operation](a, b));
     }
   });
