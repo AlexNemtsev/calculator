@@ -1,4 +1,4 @@
-import { Expression, Operation } from '../types/expression';
+import { Expression, Operation, isOperation } from '../types/expression';
 import parseInfixExpression from './parse-infix-expression';
 
 const operations: {
@@ -17,13 +17,12 @@ const calcExpression = (expression: Expression[]): number => {
   parsed.forEach((lit) => {
     if (typeof lit === 'number') {
       stack.push(lit);
-    } else if (lit in operations) {
+    } else if (isOperation(lit)) {
       // Алгоритм парсинга выражения гарантирует, что стэк не пуст
       const b = stack.pop() as number;
       const a = stack.pop() as number;
 
-      // Проверка в условии гарантирует, что lit имеет тип Operation
-      stack.push(operations[lit as Operation](a, b));
+      stack.push(operations[lit](a, b));
     }
   });
 
