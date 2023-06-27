@@ -45,3 +45,13 @@ describe('calculate должна вычислять выражения', () => {
     expect(actual2).toBe(66);
   });
 });
+
+describe('calculate должна выбрасывать ошибки', () => {
+  it('передано выражение с неправильными скобками', () => {
+    const exp1 = '6+3×(1+4×5×2';
+    const exp2 = '6+3×1+4+5)×2';
+
+    expect(() => calculate(exp1)).toThrow('A wrong parenthesis sequance');
+    expect(() => calculate(exp2)).toThrow('A wrong parenthesis sequance');
+  });
+});
