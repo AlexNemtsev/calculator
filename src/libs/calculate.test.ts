@@ -44,6 +44,30 @@ describe('calculate должна вычислять выражения', () => {
     expect(actual1).toBe(132);
     expect(actual2).toBe(66);
   });
+
+  it('должна вычислить выражение с опущенным ×', () => {
+    const exp1 = '6+3(1+4×5)2';
+
+    const actual1 = calculate(exp1);
+
+    expect(actual1).toBe(132);
+  });
+
+  it('должна вычислить выражение со скобками в начале', () => {
+    const exp1 = '(5+3)2';
+
+    const actual1 = calculate(exp1);
+
+    expect(actual1).toBe(16);
+  });
+
+  it('должна вычислить выражение со скобками в конце', () => {
+    const exp1 = '2(5+3)';
+
+    const actual1 = calculate(exp1);
+
+    expect(actual1).toBe(16);
+  });
 });
 
 describe('calculate должна выбрасывать ошибки', () => {

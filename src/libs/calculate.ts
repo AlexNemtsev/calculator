@@ -1,31 +1,5 @@
 import { Expression, Operation, isOperation, isParanthesis } from '../types/expression';
 
-const checkParenthesis = (expression: Expression[]): Expression[] | never => {
-  let balance = 0;
-  const error = new Error('A wrong parenthesis sequance');
-
-  expression.forEach((lit, i) => {
-    if (lit === '(') {
-      balance++;
-      if (typeof expression[i - 1] === 'number') {
-        expression.splice(i, 0, '×');
-        balance--;
-      }
-    } else if (lit === ')') {
-      balance--;
-      if (typeof expression[i + 1] === 'number') {
-        expression.splice(i + 1, 0, '×');
-      }
-    }
-
-    if (balance < 0) throw error;
-  });
-
-  if (balance) throw error;
-
-  return expression;
-};
-
 const parseInfixExpression = (expression: Expression[]): Expression[] => {
   const priorities: {
     [key in Operation]: number;
@@ -36,7 +10,7 @@ const parseInfixExpression = (expression: Expression[]): Expression[] => {
     '÷': 2,
   };
 
-  const inserted = checkParenthesis(expression);
+  const inserted = expression;
 
   const answer: Expression[] = [];
 
@@ -95,28 +69,43 @@ const calcExpression = (expression: Expression[]): number => {
   return stack[0];
 };
 
-const parseString = (str: string): Expression[] => {
-  const result: Expression[] = [];
+const parseString = (str: string): Expression[] | never => {
+  const expression: Expression[] = [];
   let num: string[] = [];
+  let balance = 0;
+  const error = new Error('A wrong parenthesis sequance');
 
   str.split('').forEach((sym) => {
+    if (sym === '(') {
+      balance++;
+    } else if (sym === ')') {
+      balance--;
+      if (balance < 0) throw error;
+    }
+
     if (isOperation(sym) || isParanthesis(sym)) {
       if (num.length) {
-        result.push(Number(num.join('')));
+        expression.push(Number(num.join('')));
         num = [];
+        if (sym === '(' && typeof expression.at(-1) === 'number') {
+          expression.push('×');
+        }
       }
-      result.push(sym);
+      expression.push(sym);
     } else {
+      if (expression.at(-1) === ')') expression.push('×');
       num.push(sym);
     }
   });
 
+  if (balance) throw error;
+
   if (num.length) {
-    result.push(Number(num.join('')));
+    expression.push(Number(num.join('')));
     num = [];
   }
 
-  return result;
+  return expression;
 };
 
 const calculate = (exp: string): number => {
