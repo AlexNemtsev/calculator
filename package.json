@@ -12,8 +12,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sass": "^1.62.1"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -41,6 +40,7 @@
     "eslint-plugin-react-refresh": "^0.3.4",
     "jsdom": "^22.0.0",
     "prettier": "^2.8.8",
+    "sass": "^1.63.6",
     "typescript": "^5.0.4",
     "vite": "^4.3.2",
     "vitest": "^0.31.1"
