@@ -2,11 +2,13 @@ import styles from './App.module.scss';
 
 function App() {
   return (
-    <div className={styles.screen}>
-      <p className={styles.result}>RESULT</p>
-      <p className={styles.input}>Calculated expression</p>
+    <>
+      <div className={styles.displays}>
+        <div className={styles.result}>RESULT</div>
+        <div className={styles.input}>Calculated expression</div>
+      </div>
       <div className={styles.keyboard}>Keyboard</div>
-    </div>
+    </>
   );
 }
 
